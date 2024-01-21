@@ -23,12 +23,13 @@ export type dbType = {
 // displayはサイドバーの表示状態を表すブール値です。
 export default function SideBar({ setDb }: { setDb: any }) {
   const searchLocalStorage = () => {
-    const localDbs = localStorage.getItem('dbs')
-    if (localDbs !== null) {
-      return JSON.parse(localDbs)
-    } else {
-      return []
+    if (typeof window !== 'undefined') {
+      const localDbs = localStorage.getItem('dbs')
+      if (localDbs !== null) {
+        return JSON.parse(localDbs)
+      }
     }
+    return []
   }
 
   // データベースの情報を管理
@@ -42,14 +43,16 @@ export default function SideBar({ setDb }: { setDb: any }) {
   // useEffectはdbsが更新されたときに実行されます。
   // dbsの情報をCookieに保存します。
   useEffect(() => {
-    console.log('dbsが更新されました:')
-    console.log(dbs)
-    localStorage.setItem('dbs', JSON.stringify(dbs))
+    console.debug('dbsが更新されました:')
+    console.debug(dbs)
+    if (typeof window !== 'undefined') {
+      localStorage.setItem('dbs', JSON.stringify(dbs))
+    }
   }, [dbs])
 
   useEffect(() => {
-    console.log('activeConfigDbが更新されました:')
-    console.log(activeConfigDb)
+    console.debug('activeConfigDbが更新されました:')
+    console.debug(activeConfigDb)
     setDb(dbs.find((el: any) => el.db === activeConfigDb))
   }, [activeConfigDb])
 

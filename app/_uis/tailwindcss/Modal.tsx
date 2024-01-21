@@ -9,7 +9,7 @@ type authType = {
   appId: string
 }
 type thisType = { display: boolean; setDisplay: any; callback: Function; initialAuthData: authType | undefined }
-export default function ({ display, setDisplay, callback, initialAuthData }: thisType) {
+export default function Modal({ display, setDisplay, callback, initialAuthData }: thisType) {
   const getInitialAuth = () => {
     return (
       initialAuthData || {
@@ -26,8 +26,8 @@ export default function ({ display, setDisplay, callback, initialAuthData }: thi
   const [forms, setForms] = useState(getInitialAuth())
 
   useEffect(() => {
-    console.log("initialAuthData's useEffect:")
-    console.log(initialAuthData)
+    console.debug("initialAuthData's useEffect:")
+    console.debug(initialAuthData)
     setForms(getInitialAuth())
   }, [initialAuthData])
 

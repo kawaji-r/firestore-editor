@@ -18,7 +18,7 @@ export default function RegisterButton(props: thisType) {
     if (docs === null) return
     try {
       for (const doc of docs) {
-        console.log(doc.path)
+        console.warn(doc.path)
         await fb.firestore.updateField(doc.path, doc.data as firestoreField, true)
       }
       if (!success) {
