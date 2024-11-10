@@ -61,6 +61,7 @@ export default function SideBar({ setDb }: { setDb: any }) {
     if (db) {
       db['auth'] = auth
       setDbs(dbs.map((el: any) => (el.db === db.db ? db : el)))
+      setDb(dbs.find((el: any) => el.db === activeConfigDb))
     }
   }
 
